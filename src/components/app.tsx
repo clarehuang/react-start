@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Home from './home/home'
 import About from './about/about'
 import Login from './login/login'
+import Register from './register/register'
 
 interface AppProps {
   Router: any
@@ -18,7 +19,8 @@ const App: SFC<AppProps> = ({ Router, routerProps }) => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/about" component={About} />
-      <Route exact path="/login" component={Login} />
+      <Route exact path="/user/login" component={Login} />
+      <Route exact path="/user/register" component={Register} />
     </Switch>
   </Router>
 )

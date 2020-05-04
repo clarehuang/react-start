@@ -25,6 +25,9 @@ const Login = () => {
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      style={{ width: '400px' }}
+      method="post"
+      role="form"
     >
       <Form.Item
         label="Username"
