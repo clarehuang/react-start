@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd'
+import ajax from '../../client/utils/ajax'
 
 const layout = {
   labelCol: { span: 8 },
@@ -10,8 +11,21 @@ const tailLayout = {
 }
 
 const Login = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values)
+  const onFinish = ({ username, password }): void => {
+    ajax({
+      url: '/api/user/login',
+      method: 'POST',
+      data: {
+        username,
+        password,
+      },
+      success(res, status) {
+        console.log(status, res)
+      },
+      fail(res, status) {
+        console.log(status, res)
+      },
+    })
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -19,42 +33,43 @@ const Login = () => {
   }
 
   return (
-    <Form
-      {...layout}
-      name="basic"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      style={{ width: '400px' }}
-      method="post"
-      role="form"
-    >
-      <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+    <div>
+      <h1>Login</h1>
+      <Form
+        {...layout}
+        name="basic"
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        style={{ width: '400px' }}
       >
-        <Input />
-      </Form.Item>
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[{ required: true, message: 'Please input your username!' }]}
+        >
+          <Input />
+        </Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input.Password />
-      </Form.Item>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: 'Please input your password!' }]}
+        >
+          <Input.Password />
+        </Form.Item>
 
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
+        <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
 
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item {...tailLayout}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   )
 }
 

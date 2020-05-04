@@ -8,22 +8,23 @@ const router = express.Router()
 // })
 
 router.post('/register', function (req, res) {
+  console.log('register', req.body.username)
   User.register(new User({ username: req.body.username }), req.body.password, function (
     err,
     account
   ) {
     if (err) {
-      return res.render('register', { account })
+      res.status(400).send(err).end()
     }
 
     passport.authenticate('local')(req, res, function () {
-      res.redirect('/')
+      console.log(account)
     })
   })
 })
 
 router.post('/login', passport.authenticate('local'), function (req, res) {
-  res.redirect('/')
+  res.status(200).send({}).end()
 })
 
 router.get('/logout', function (req, res) {

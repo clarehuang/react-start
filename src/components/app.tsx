@@ -19,8 +19,8 @@ const App: SFC<AppProps> = ({ Router, routerProps }) => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/about" component={About} />
-      <Route exact path="/user/login" component={Login} />
-      <Route exact path="/user/register" component={Register} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/register" component={Register} />
     </Switch>
   </Router>
 )
